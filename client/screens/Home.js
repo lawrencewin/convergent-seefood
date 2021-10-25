@@ -1,11 +1,35 @@
-import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import * as ImagePicker from 'expo-image-picker';
+import { StyleSheet, Image, TouchableOpacity, Text, View, Platform } from 'react-native';
 import cameraLogo from "../camera.png"
 
 export default function Home({ navigation }) {
-  const onButtonPress = () => {
-    navigation.navigate("Results")
+
+  useEffect(() => {
+    if (Platform.OS !== 'web') {
+      ImagePicker.requestMediaLibraryPermissionsAsync().then((result) => {
+        if (result.status !== 'granted') {
+          alert('We need camera permissions to use app features!')
+        }
+      })
+    }
+  }, [])
+  
+  const onButtonPress = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      allowsMultipleSelection: false
+    })
+    if (!result.cancelled) {
+      console.log(result)
+      const uri = result.uri
+      console.log(uri)
+      navigation.navigate("Results", { uri })
+    }
+    
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -35,7 +59,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    display: 'center',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
   },

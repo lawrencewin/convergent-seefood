@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, Text, View } from 'react-native';
 
-export default function Results() {
+export default function Results(props) {
+  const params = props.route.params
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Results</Text>
       </View>
       <View style={styles.results}>
-        <View style={[styles.resultsPill]}>
+        <View style={[styles.resultsPill, styles.resultsPillGreen]}>
           <Text style={styles.resultsPillText}>Not Hotdog!</Text>
         </View>
       </View>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: "https://thewoksoflife.com/wp-content/uploads/2016/01/beef-fried-rice-3.jpg" }} style={styles.image} />
+        <Image source={{ uri: params.uri }} style={styles.image} />
       </View>
       <View style={styles.body}>
         <TouchableOpacity 
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    display: 'center',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -46,9 +47,11 @@ const styles = StyleSheet.create({
   resultsPill: {
     paddingHorizontal: 30,
     paddingVertical: 18,
-    borderRadius: 30,
-    backgroundColor: "#FF8B60"
+    borderRadius: 30
   },
+  resultsPillRed: { backgroundColor: "#FF8B60" },
+  resultsPillGreen: { backgroundColor: "#78D769", color: "#606060" },
+  resultsPillNeutral: { backgroundColor: "#808080" },
   resultsPillText: {
     fontSize: 16,
     fontWeight: "bold",
