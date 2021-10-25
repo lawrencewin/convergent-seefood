@@ -14,7 +14,8 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: "#FBC819" },
-          headerTintColor: "#ffffff"
+          headerTintColor: "#ffffff",
+          headerTitleAlign: "center"
         }}
         initialRouteName="Home"
       >
@@ -22,15 +23,5 @@ export default function App() {
         <Stack.Screen name="Results" component={Results} />
       </Stack.Navigator>
     </NavigationContainer>
-    
-    // <Home />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#FFE58C"
-  }
-})
